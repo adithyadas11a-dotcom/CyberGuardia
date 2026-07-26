@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}Registration{% endblock %}
+{% load static %}
+{% block content %}
+{% block navbar %}{% endblock %}
+
+<div class="signup-container">
+    <div class="Signup_RightSide">
+        <p class="Signup_RightSide_head">Sign Up!</p>
+        <form method="post" enctype="multipart/form-data" class="flex flex-col items-center justify-center">
+            {% csrf_token %}
+
+            <!-- Image Upload -->
+            <div class="mb-5 flex flex-col items-center justify-center">
+                <label for="image-upload" class="flex flex-col items-center justify-center cursor-pointer">
+                    <input type="file" name="profile_image" id="image-upload" accept="image/*" class="hidden" onchange="previewImage(event)" />
+                    <img id="image-preview" src="{% static 'Images/profile-pic.png' %}" alt="Upload Profile Pic" class="w-48 h-56 object-contain mt-2 rounded-2xl" />
+                    <span class="text-sm mt-2 flex items-center justify-center">Upload Profile Image</span>
+                </label>
+                {% for error in form.profile_image.errors %}
+                    <p class="text-red-500 text-sm ">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <!-- Form Fields in 2-Column Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Username -->
+                <div>
+                    <input type="text" class="form-control" name="username" placeholder="Username" value="{{ form.username.value|default_if_none:'' }}" />
+                    {% for error in form.username.errors %}
+                        <p class="text-red-500 text-sm ">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            
+                <!-- Email -->
+                <div>
+                    <input type="email" class="form-control" name="email" placeholder="Email" value="{{ form.email.value|default_if_none:'' }}" />
+                    {% for error in form.email.errors %}
+                        <p class="text-red-500 text-sm ">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            
+                <!-- Area of Interest -->
+                <div>
+                    <input type="text" class="form-control" name="area_of_interest" placeholder="Area of Interest" value="{{ form.area_of_interest.value|default_if_none:'' }}" />
+                    {% for error in form.area_of_interest.errors %}
+                        <p class="text-red-500 text-sm ">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            
+                <!-- Age -->
+                <div>
+                    <input type="text" class="form-control" name="age" placeholder="Age" value="{{ form.age.value|default_if_none:'' }}" />
+                    {% for error in form.age.errors %}
+                        <p class="text-red-500 text-sm ">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            
+                <!-- Country -->
+                <div>
+                    <input type="text" class="form-control" name="country" placeholder="Country" value="{{ form.country.value|default_if_none:'' }}" />
+                    {% for error in form.country.errors %}
+                        <p class="text-red-500 text-sm ">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            
+                <!-- State -->
+                <div>
+                    <input type="text" class="form-control" name="state" placeholder="State" value="{{ form.state.value|default_if_none:'' }}" />
+                    {% for error in form.state.errors %}
+                        <p class="text-red-500 text-sm ">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            
+                <!-- Password -->
+                <div>
+                    <input type="password" class="form-control" name="password" placeholder="Password" />
+                    {% for error in form.password.errors %}
+                        <p class="text-red-500 text-sm ">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            
+                <!-- Confirm Password -->
+                <div>
+                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" />
+                    {% for error in form.confirm_password.errors %}
+                        <p class="text-red-500 text-sm ">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <button type="submit" class="btn Signup_Button mb-4">Sign Up</button>
+            </div>
+
+            <p class="text-center">
+                Already have an account?
+                <a class="user-signup-login" href="{% url 'login' %}">Login</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<!-- Image Preview Script -->
+<script>
+function previewImage(event) {
+    const image = document.getElementById('image-preview');
+    const file = event.target.files[0];
+    if (file) {
+        image.src = URL.createObjectURL(file);
+    }
+}
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,92 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+
+
+<!-- Advertisers Requests -->
+<div class="bg-white p-5 shadow rounded mb-6">
+    <h2 class="text-lg font-semibold mb-4 text-orange-500 text-left">
+      View Advertisers Requests
+    </h2>
+    <table class="w-full border-collapse border border-gray-200">
+      <thead>
+        <tr class="bg-gray-400 text-white font-light text-sm">
+          <th class="border p-2">S No</th>
+          <th class="border p-2">Name</th>
+          <th class="border p-2">Phone Number</th>
+          <th class="border p-2">Email</th>
+          <th class="border p-2">Company Name</th>
+          <th class="border p-2">Business Category</th>
+          <th class="border p-2">Status</th>
+          <th class="border p-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for advertiser in advertisers %}
+        <tr class="text-center">
+            <td class="border p-2">{{ forloop.counter }}</td>
+            <td class="border p-2">{{ advertiser.username }}</td>
+            <td class="border p-2">{{ advertiser.advertiser.contact_number }}</td>
+            <td class="border p-2">{{ advertiser.email }}</td>
+            <td class="border p-2">{{ advertiser.advertiser.business_name }}</td>
+            <td class="border p-2">{{ advertiser.advertiser.business_type }}</td>
+            <td class="border p-2">
+              {% if advertiser.is_active %}
+                <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Active</span>
+              {% else %}
+                <span class="bg-red-100 text-red-800 px-2 py-1 rounded">Inactive</span>
+              {% endif %}
+            </td>
+          <td class="border p-2">
+            <a href="{% url 'approve_advertiser' advertiser.id %}" class="text-green-600">✅</a>
+            <a href="{% url 'reject_advertiser' advertiser.id %}" class="text-red-600">❌</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="text-center text-gray-500">No pending requests</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{% url 'all_advertisers' %}" class="text-orange-500 mt-2 block text-right"
+      >View All →</a
+    >
+  </div>
+
+  <!-- Recent Posts -->
+  <div class="bg-white p-5 shadow rounded">
+    <h2 class="text-lg font-semibold mb-4 text-orange-500 text-left">
+      View Recent Posts
+    </h2>
+    
+    <div class="grid grid-cols-3 gap-4">
+    {% for post in recent_posts %}
+    <div class="bg-gray-50 p-4 rounded shadow">
+        <div class="flex items-center space-x-3 mb-2">
+          <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
+          <div>
+            <p class="font-semibold text-left">{{ post.user }}</p>
+            <p class="text-xs text-gray-500">
+              {{ post.location }} • {{ post.created_at|timesince }} ago
+            </p>
+          </div>
+        </div>
+        <p class="text-sm mb-3">{{ post.content|truncatechars:50 }}</p>
+        {% if post.image %}
+          <img src="{{ post.image.url }}" class="w-full h-40 object-cover rounded" />
+        {% else %}
+          <div class="w-full h-40 bg-gray-300 rounded"></div>
+        {% endif %}
+        <div class="flex justify-between text-sm text-gray-600 mt-2">
+          <span>❤️ {{ post.likes.count }}</span>
+          <span>💬 {{ post.comments.count }}</span>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    <a href="#" class="text-orange-500 mt-2 block text-left"
+      >View All →</a
+    >
+  </div>
+
+
+{% endblock %}

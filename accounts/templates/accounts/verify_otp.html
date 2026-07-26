@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Forgot Password{% endblock %}
+{% block content %}
+{% load static %}
+{% block navbar %}{% endblock %}
+<div class="userfp-main">
+    <div class="userfp-left">
+        <img
+            class="userfp-img"
+            src="{% static 'Images/forgetP_backgroundimg.png' %}"
+            alt="Forget Password Background"
+        />
+    </div>
+    <div class="userfp-right">
+        <p class="userfp-forgetpassword-head mb-5">Forget Password?</p>
+        <p class="userfp-forgetpassword-para mb-5">
+            Enter your E-mail below to receive your password reset
+            <br />
+            instruction
+        </p>
+        {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                    <p class="text-red-500">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form id="forgotPasswordForm" method="post">
+            {% csrf_token %}
+            <input
+                type="text"
+                name="otp"
+                placeholder="Enter OTP"
+                class="form-control userfp-email mb-5"
+                required
+            />
+            <div class="d-flex justify-content-center mt-4">
+                <button class="userfp-next-button" type="submit">
+                    Verify
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

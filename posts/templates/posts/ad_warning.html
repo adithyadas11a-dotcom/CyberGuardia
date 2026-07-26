@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
+    <div class="text-center">
+        <h2 class="text-2xl font-semibold text-red-600">⚠️ Warning!</h2>
+        <p class="text-gray-600 mt-2">
+            The advertisement you clicked is classified as <strong class="text-red-500">{{ result }}</strong>.  
+            Proceed with caution.
+        </p>
+    </div>
+
+    <div class="mt-6 bg-gray-100 p-4 rounded-md">
+        <h3 class="text-lg font-semibold text-gray-800">📢 Ad Details</h3>
+        <p class="text-gray-700"><strong>Title:</strong> {{ ad.title }}</p>
+        <p class="text-gray-700"><strong>Description:</strong> {{ ad.description }}</p>
+    </div>
+
+    <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+        <form action="{% url 'advertisers:visit_anyway' ad.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition duration-300">
+                🚨 Visit Anyway
+            </button>
+        </form>
+        <a href="{% url 'home' %}" class="bg-gray-500 text-white px-6 py-2 rounded-md text-decoration-none hover:bg-gray-600 transition duration-300">
+            ⬅️ Go Back
+        </a>
+    </div>
+</div>
+{% endblock %}

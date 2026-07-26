@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Create Post | SocialConnect{% endblock %}
+{% block content %}
+
+<main class="max-w-3xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Create Post</h1>
+
+    {% if messages %}
+    <div class="p-4 bg-red-50 border-l-4 border-red-500 relative">
+        <button type="button" class="absolute top-0 right-0 text-gray-600 hover:text-gray-900"
+                onclick="this.parentElement.style.display='none'">&times;</button>
+        {% for message in messages %}
+        <p class="text-red-700">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        
+        <!-- Image Upload Area -->
+        <div>
+            <label for="image" class="block text-gray-700 font-medium mb-2">Upload Image</label>
+            <div class="w-full h-96 bg-gray-200 rounded-xl border-2 border-gray-400 border-dashed flex items-center justify-center cursor-pointer hover:bg-gray-300 transition-colors relative overflow-hidden" onclick="document.getElementById('image').click()">
+                <input type="file" id="image" name="image" accept="image/*" class="hidden" onchange="previewImage_1(event)">
+                <img id="previewImage" src="#" alt="Preview" class="absolute inset-0 w-full h-full object-cover hidden">
+                <i class="fas fa-plus text-4xl text-gray-500" id="uploadIcon"></i>
+            </div>
+        </div>
+
+
+        <!-- Title Input -->
+        <div>
+            <label for="title" class="block text-gray-700 font-medium mb-2">Title</label>
+            <input type="text" name="title" id="title" placeholder="Give your post a title" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
+        </div>
+
+        <!-- Location Input -->
+        <div>
+            <label for="location" class="block text-gray-700 font-medium mb-2">Location</label>
+            <input type="text" name="location" id="location" placeholder="Location" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500">
+        </div>
+        
+        <!-- Content Input -->
+        <div>
+            <label for="content" class="block text-gray-700 font-medium mb-2">Content</label>
+            <textarea name="content" id="content" rows="5" placeholder="What's on your mind?" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500"></textarea>
+        </div>
+        
+        <div class="flex items-center justify-end">
+            <!-- <a href="{% url 'home' %}" class="mr-4 inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">Cancel</a> -->
+            <button
+                    type="submit"
+                    class="w-full py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium"
+                >
+                    Post Now
+                </button>
+        </div>
+    </form>
+</main>
+
+{% endblock %}

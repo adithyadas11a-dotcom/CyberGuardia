@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Add Advertisement{% endblock %}
+{% load static %}
+{% block content %}
+{% block navbar %}{% endblock %}
+
+<div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6 my-10">
+    <h2 class="text-center text-orange-500 text-2xl font-semibold mb-4">Add Advertisement</h2>
+
+    {% if messages %}
+        <ul class="mb-4">
+            {% for message in messages %}
+                <li class="text-sm {% if message.tags == 'error' %}text-red-500{% else %}text-green-500{% endif %}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+
+        <label class="block">Title:</label>
+        <input type="text" name="title" class="w-full p-2 border rounded" required>
+
+        <label class="block">Link:</label>
+        <input type="url" name="link" class="w-full p-2 border rounded" required>
+
+        <label class="block">Start Date:</label>
+        <input type="date" name="start_date" class="w-full p-2 border rounded" required>
+
+        <label class="block">End Date:</label>
+        <input type="date" name="end_date" class="w-full p-2 border rounded" required>
+
+        <label class="block">Description:</label>
+        <textarea name="description" class="w-full p-2 border rounded" required></textarea>
+
+        <label class="block">Advertisement Type:</label>
+        <select name="advertisement_type" class="w-full p-2 border rounded" required>
+            <option value="lifestyle">Life Style</option>
+            <option value="food_cooking">Food and Cooking</option>
+            <option value="movie">Movie</option>
+            <option value="music">Music</option>
+            <option value="photography">Photography</option>
+            <option value="gaming">Gaming</option>
+            <option value="travel">Travel</option>
+
+        </select>
+
+        <label class="block">Upload Image:</label>
+        <input type="file" name="image" class="w-full p-2 border rounded" required>
+
+        <button type="submit" class="w-full px-12 py-2 mt-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors text-decoration-none">Submit</button>
+    </form>
+</div>
+{% endblock %}

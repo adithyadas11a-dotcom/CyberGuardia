@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  </head>
+  <body class="bg-gray-100">
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <aside class="w-64 p-5">
+        <div class="flex flex-col items-center mb-8">
+          <div
+            class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center"
+          >
+            <i class="ph ph-user text-white text-2xl"></i>
+          </div>
+          <span class="text-lg font-semibold mt-2">Admin</span>
+        </div>
+        <nav>
+          <a
+            href="{% url 'admin_dashboard' %}"
+            class="flex items-center py-2 px-4 rounded mb-2 {% if request.resolver_match.view_name == 'admin_dashboard' %} bg-orange-500 text-white {% else %} hover:bg-gray-300 {% endif %}"
+          >
+            <i class="ph ph-house mr-2"></i> Dashboard
+          </a>
+          <a
+            href="{% url 'abusive_comments' %}"
+            class="flex items-center py-2 px-4 rounded mb-2 {% if request.resolver_match.view_name == 'abusive_comments' %} bg-orange-500 text-white {% else %} hover:bg-gray-300 {% endif %}"
+          >
+            <i class="ph ph-warning mr-2"></i> Abusive Comments
+          </a>
+          <!-- <a
+            href="#"
+            class="flex items-center py-2 px-4 rounded mb-2 {% if request.resolver_match.view_name == 'reported_comments' %} bg-orange-500 text-white {% else %} hover:bg-gray-300 {% endif %}"
+          >
+            <i class="ph ph-flag mr-2"></i> Reported Comments
+          </a> -->
+          <a
+            href="{% url 'all_posts' %}"
+            class="flex items-center py-2 px-4 rounded mb-2 {% if request.resolver_match.view_name == 'all_posts' %} bg-orange-500 text-white {% else %} hover:bg-gray-300 {% endif %}"
+          >
+            <i class="ph ph-book-open mr-2"></i> View Blogs
+          </a>
+          <a
+            href="{% url 'all_users' %}"
+            class="flex items-center py-2 px-4 rounded mb-2 {% if request.resolver_match.view_name == 'all_users' %} bg-orange-500 text-white {% else %} hover:bg-gray-300 {% endif %}"
+          >
+            <i class="ph ph-users mr-2"></i> View Users
+          </a>
+          <a
+            href="{% url 'all_advertisers' %}"
+            class="flex items-center py-2 px-4 rounded mb-2 {% if request.resolver_match.view_name == 'all_advertisers' %} bg-orange-500 text-white {% else %} hover:bg-gray-300 {% endif %}"
+          >
+            <i class="ph ph-storefront mr-2"></i> Advertisers
+          </a>
+          <a
+            href="{% url 'all_advertisements' %}"
+            class="flex items-center py-2 px-4 rounded mb-2 {% if request.resolver_match.view_name == 'all_advertisements' %} bg-orange-500 text-white {% else %} hover:bg-gray-300 {% endif %}"
+          >
+            <i class="ph ph-megaphone mr-2"></i> Advertisements
+          </a>
+          <a
+            href="{% url 'logout' %}"
+            class="flex items-center py-2 px-4 rounded mb-2 hover:bg-gray-300"
+          >
+            <i class="ph ph-sign-out mr-2"></i> Logout
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+        <main class="flex-1 p-6 text-center">
+            <h1 class="text-2xl font-bold mb-6 text-center mx-auto font-semibold">
+            BLOG <span class="text-orange-500 font-semibold">SPHERE</span>
+            </h1>
+
+
+            {% block content %}
+            {% endblock content %}
+
+        </main>
+    </div>
+</body>
+</html>

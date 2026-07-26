@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Feed | SocialConnect{% endblock %}
+{% block content %}
+<main class="max-w-7xl mx-auto px-4 py-8">
+    <div class="grid md:grid-cols-4 gap-8">
+        <!-- Main Content Area -->
+        <div class="md:col-span-3">
+            <!-- Hero Section -->
+            <!-- Social Media Post Card -->
+            {% for post in posts %}
+            <div
+                class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden mb-8"
+            >
+                <!-- Card Header -->
+                <div class="p-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <img
+                            src="{{ post.user.profile.profile_image.url }}"
+                            alt="Profile"
+                            class="w-10 h-10 rounded-full"
+                        />
+                        <div>
+                            <h3 class="font-semibold text-gray-800">
+                                {{ post.user.username }}
+                            </h3>
+                            <p class="text-sm text-gray-500">
+                                <span class="mr-2">{{ post.location }}</span>
+                                <span>• {{post.created_at}}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <button
+                        class="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100"
+                    >
+                        <!-- <svg
+                            class="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        > -->
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                            />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Post Content -->
+                <div class="p-4">
+                    <p class="text-gray-800 mb-4">
+                        {{post.content}}
+                    </p>
+                    <img
+                        src="{{ post.image.url }}"
+                        alt="Post"
+                        class="w-full object-cover rounded-lg"
+                    />
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="p-4 flex justify-between">
+                    <button class="like-button flex items-center space-x-2 text-gray-600 hover:text-red-500" data-post-id="{{ post.id }}">
+                        <svg id="like-icon-{{ post.id }}" class="w-5 h-5" fill="{% if post.is_liked_by_user %}red{% else %}none{% endif %}" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                        <span id="likes-count-{{ post.id }}">{{ post.likes.count }}</span>
+                    </button>
+                
+                    <a href="{% url 'post_details' post.id %}" class="comment-button flex items-center space-x-2 text-gray-600 hover:text-blue-500" data-post-id="{{ post.id }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        <span>{{ post.comments.all|length }}</span>
+                    </a>
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- advertisement section -->
+        <!-- Sidebar -->
+        <aside class="md:col-span-1">
+            {% for ad in ads %}
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg">
+                    <a href="{% url 'advertisers:ad_click' ad.id %}"><img
+                        src="{{ ad.image.url }}"
+                        alt="Ad"
+                        class="w-full object-fill mb-4"
+                    /></a>
+                </div>
+            {% endfor %}
+            </div>
+        </aside>
+    </div>
+</main>
+<!-- Modal Container -->
+
+
+{% endblock %}

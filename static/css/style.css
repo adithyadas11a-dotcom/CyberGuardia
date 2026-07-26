@@ -1,0 +1,86 @@
+body {
+    background-color: #ffffff;
+    color: white;
+  }
+  .login-container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-box {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+  .form-control {
+    background: #333;
+    border: none;
+    color: white;
+  }
+  .form-control::placeholder {
+    color: #bbb;
+  }
+  .register-link {
+    color: red;
+  }
+
+  .register-container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+.register-box {
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    width: 450px;
+}
+.form-control {
+    background: #f1f5f9;
+    border: none;
+    color: #1e293b;
+}
+.form-control::placeholder {
+    color: #64748b;
+}
+.register-btn {
+    background: #2563eb;
+    border: none;
+    color: white;
+}
+.register-btn:hover {
+    background: #1d4ed8;
+}
+.login-link {
+    color: red;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; /* Thin scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light background */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888; /* Gray scrollbar */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker when hovered */
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}

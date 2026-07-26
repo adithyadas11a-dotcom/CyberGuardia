@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}My Posts | SocialConnect{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="p-4 bg-red-50 border-l-4 border-red-500 relative">
+    <button type="button" class="absolute top-0 right-0 text-gray-600 hover:text-gray-900"
+            onclick="this.parentElement.style.display='none'">&times;</button>
+    {% for message in messages %}
+    <p class="text-red-700">{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+<main class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-semibold mb-6">My Posts</h1>
+    {% if my_posts %}
+        {% for post in my_posts %}
+            <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden mb-8">
+                <!-- Card Header -->
+                <div class="p-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <img src="{{ post.user.profile.profile_image.url }}" alt="Profile"
+                             class="w-10 h-10 rounded-full" />
+                        <div>
+                            <h3 class="font-semibold text-gray-800">{{ post.user.username }}</h3>
+                            <p class="text-sm text-gray-500">
+                                <span class="mr-2">{{ post.location }}</span>
+                                <span>• {{ post.created_at }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Edit & Delete Options -->
+                    <div class="space-x-2">
+                        <a href="{% url 'edit_post' post.id %}" class="text-blue-600 hover:underline">Edit</a>
+                        <a href="{% url 'delete_my_post' post.id %}" class="text-red-600 hover:underline">Delete</a>
+                        <!-- <form method="POST" action="{% url 'delete_post' post.id %}" class="inline">
+                            {% csrf_token %}
+                            <button type="submit"
+                                    class="text-red-600 hover:underline">Delete</button>
+                        </form> -->
+                    </div>
+                </div>
+
+                <!-- Post Content -->
+                <div class="p-4">
+                    <p class="text-gray-800 mb-4">{{ post.content }}</p>
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="Post Image" class="w-full object-cover rounded-lg" />
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-gray-600 text-center mt-10">You haven’t created any posts yet.</p>
+    {% endif %}
+</main>
+{% endblock %}
